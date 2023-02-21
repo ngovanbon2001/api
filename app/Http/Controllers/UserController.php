@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Contracts\UserServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
 
-    protected $a;
+    protected $userService;
 
-    public function __construct()
+    public function __construct(UserServiceInterface $userService)
     {
-        return 1;
+        return $this->userService = $userService;
     }
 
     /**
@@ -23,7 +24,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $attributes = $request->all();
-        $data = 0;
+        $data = $this->userService->list($attributes);
 
         return $this->respond($data);
     }
@@ -33,9 +34,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $attributes = $request->all();
+        $data = $this->userService->create($attributes);
+
+        return $this->respond($data);
     }
 
     /**
@@ -45,10 +49,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $attributes = $request->all();
+        $data = $this->userService->update($attributes, $attributes->id);
+
+        return $this->respond($data);
     }
+
+    public function delete(Request $request)
+    {
+        $attributes = $request->only(['id']);
+        $data = $this->userService->delete($attributes->id);
+
+        return $this->respond($data);
+    }
+
+    public function detail(Request $request)
+    {
+        $attributes = $request->only(['id']);
+        $data = $this->userService->detail($attributes->id);
+
+        return $this->respond($data);
+    }
+
 
     public function respond(int $code = 0, string $message = '', $data = null, int $httpCode = Response::HTTP_OK, array $headers = [], int $options = 0)
     {
