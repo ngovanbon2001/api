@@ -19,4 +19,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $this->applyConditions($conditions);
         return $this->model->get()->toArray();
     }
+
+    public function detailTest($email)
+    {
+        return $this->model->where("email", "like", $email)->get()->toArray();
+    }
+
 }

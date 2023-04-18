@@ -19,6 +19,11 @@ class UserService implements UserServiceInterface
         return $this->userRepository->list($attributes);
     }
 
+    public function detailTest(string $email)
+    {
+        return $this->userRepository->detailTest($email);
+    }
+
     public function create(array $attributes)
     {
         return $this->userRepository->create($attributes);

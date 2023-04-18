@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\BannerService;
+use App\Services\BrandService;
+use App\Services\Contracts\BannerServiceInterface;
+use App\Services\Contracts\BrandServiceInterface;
 use App\Services\Contracts\UserServiceInterface;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(UserServiceInterface::class, UserService::class);
+        $this->app->bind(BannerServiceInterface::class, BannerService::class);
+        $this->app->bind(BrandServiceInterface::class, BrandService::class);
     }
 
     /**
@@ -25,6 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 }

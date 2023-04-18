@@ -1,0 +1,64 @@
+Private Sub Workbook_WindowActivate(ByVal Wn As Excel.Window)
+Dim LastRow2 As Integer
+Dim vungChon As Range
+Dim vungChon1 As Range
+Dim vungChon2 As Range
+Dim vungChon3 As Range
+
+LastRow2 = Sheet1.UsedRange.Rows(Sheet1.UsedRange.Rows.Count).Row
+E10 = Range("E10").Value
+
+Set vungChon = Range("C10:C" & LastRow2)
+Set vungChon1 = Range("D10:D" & LastRow2)
+Set vungChon3 = Range("C10:E" & LastRow2)
+
+Call merge(vungChon)
+Call merge(vungChon1)
+
+For i = 10 To LastRow2 Step 1
+   Set vungChon2 = Range("E" & i)
+   vungChon2.Value = E10
+   vungChon2.Borders().Weight = xlMedium
+   vungChon2.HorizontalAlignment = xlCenter
+Next i
+
+vungChon3.Interior.ColorIndex = 34
+
+End Sub
+
+Sub merge(vungChon As Range)
+Dim Rng As Range, xCell As Range
+
+Dim xRows As Integer
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+xRows = vungChon.Rows.Count
+
+For Each Rng In vungChon.Columns
+For i = 1 To xRows - 1
+For j = i + 1 To xRows
+If Rng.Cells(i, 1).Value <> Rng.Cells(j, 1).Value Then
+Exit For
+End If
+Next
+vungChon.Parent.Range(Rng.Cells(i, 1), Rng.Cells(j - 1, 1)).merge
+
+i = j - 1
+
+vungChon.Borders().Weight = xlMedium
+Next
+Next
+
+vungChon.VerticalAlignment = xlCenter  'Can gi?a cho vùng du?c ch?n
+vungChon.HorizontalAlignment = xlCenter
+
+Application.DisplayAlerts = True
+Application.ScreenUpdating = True
+
+End Sub
+
+
+
+
+

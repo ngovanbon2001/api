@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\Contracts\UserServiceInterface;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -29,59 +31,74 @@ class UserController extends Controller
         return $this->respond($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+
+    public function create(UserRequest $request)
     {
         $attributes = $request->all();
+        $attributes['password'] = bcrypt($attributes['password']);
         $data = $this->userService->create($attributes);
 
-        return $this->respond($data);
+        return $this->handleRepond($data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(UserRequest $request)
     {
         $attributes = $request->all();
-        $data = $this->userService->update($attributes, $attributes->id);
+        $data = $this->userService->update($attributes, $request->id);
 
         return $this->respond($data);
     }
 
     public function delete(Request $request)
     {
-        $attributes = $request->only(['id']);
-        $data = $this->userService->delete($attributes->id);
+        $data = $this->userService->delete($request->id);
 
         return $this->respond($data);
     }
 
     public function detail(Request $request)
     {
-        $attributes = $request->only(['id']);
-        $data = $this->userService->detail($attributes->id);
+        $data = $this->userService->detail($request->id);
 
         return $this->respond($data);
     }
 
 
-    public function respond(int $code = 0, string $message = '', $data = null, int $httpCode = Response::HTTP_OK, array $headers = [], int $options = 0)
+    public function detailTest(Request $request)
     {
-        $response = [
-            'code' => $code,
-            'message' => $message,
-            'data' => $data,
+        $data = $this->userService->detailTest($request->email);
+
+        return $this->respond(200, "Data", $data);
+    }
+
+    public function login(Request $request)
+    {
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password
         ];
 
-        return response()->json($response, $httpCode, $headers, $options);
+        if (Auth::attempt($data)) {
+            $user = Auth::user();
+            $token = $user->createToken('Laravel8PassportAuth')->accessToken;
+            $token = 'Bearer ' . $token;
+            return response()->json(['data' => $user, 'token' => $token], 200);
+        } else {
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+    }
+
+    public function logout()
+    {
+        $user = Auth::user()->token();
+        $user->revoke();
+        return response()->json(['message' => 'Logout Success'], 200);
+    }
+
+    public function list(Request $request)
+    {
+        $data = $this->userService->list($request->all());
+
+        return $this->handleRepond($data);
     }
 }
