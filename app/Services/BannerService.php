@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\Constants;
 use App\Repositories\Contracts\BannerRepositoryInterface;
 use App\Services\Contracts\BannerServiceInterface;
 
@@ -19,7 +20,7 @@ class BannerService implements BannerServiceInterface
 
     public function all()
     {
-        return $this->bannerRepository->paginate(self::paginateBe);
+        return $this->bannerRepository->where('active', '<', Constants::DELETE)->paginate(self::paginateBe);
     }
 
     public function list(array $attributes)
