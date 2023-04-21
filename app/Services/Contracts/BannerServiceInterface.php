@@ -6,7 +6,7 @@ interface BannerServiceInterface
 {
     public function all();
 
-    public function list(array $attributes);
+    public function list(string $title);
 
     public function create(array $attributes);
 

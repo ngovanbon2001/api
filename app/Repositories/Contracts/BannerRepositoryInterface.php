@@ -3,6 +3,6 @@ namespace App\Repositories\Contracts;
 
 interface BannerRepositoryInterface extends RepositoryInterface
 {
-    public function list(array $conditions);
-    public function testData(int $id);
+    public function list(string $title);
+    public function findTitle(string $title);
 }

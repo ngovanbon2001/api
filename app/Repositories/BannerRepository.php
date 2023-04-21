@@ -20,9 +20,9 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
         return $this->model->get()->toArray();
     }
 
-    public function testData($id)
+    public function findTitle($title)
     {
-        return $this->model->where('id', $id)->get();
+        return $this->model->where('title', 'like', '%'.$title.'%')->get();
     }
 
 }

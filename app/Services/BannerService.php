@@ -23,9 +23,9 @@ class BannerService implements BannerServiceInterface
         return $this->bannerRepository->where('active', '<', Constants::DELETE)->paginate(self::paginateBe);
     }
 
-    public function list(array $attributes)
+    public function list(string $title)
     {
-        return $this->bannerRepository->list($attributes);
+        return $this->bannerRepository->findTitle($title);
     }
 
     public function create(array $attributes)

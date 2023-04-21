@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/banner/update/{id}', [BannerController::class, 'update']);
     Route::get('/banner/show/{id}', [BannerController::class, 'show']);
     Route::get('/banner/delete/{id}', [BannerController::class, 'destroy']);
+    Route::post('/banner/listFind', [BannerController::class, 'list']);
 
     Route::get('/test/{id}', [OrderController::class, 'show']);
 
