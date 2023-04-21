@@ -24,8 +24,10 @@ class BannerController extends Controller
 
     public function list(Request $request)
     {
-        $attributes = $request->title;
-        return $this->handleRepond($this->bannerService->list($attributes));
+        if(isset($request->title)) {
+            return $this->handleRepond($this->bannerService->list($request->title));
+        }
+        return $this->bannerService->all();
     }
 
     public function store(AddBannerRequest $request)

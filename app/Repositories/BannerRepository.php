@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Constants\Constants;
 use App\Models\Banner;
 use App\Repositories\Contracts\BannerRepositoryInterface;
 
@@ -22,7 +23,7 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
 
     public function findTitle($title)
     {
-        return $this->model->where('title', 'like', '%'.$title.'%')->get();
+        return $this->model->where('title', 'like', '%'.$title.'%')->where('active', '<', Constants::DELETE)->limit(Constants::PAGINATE_BE)->get();
     }
 
 }
