@@ -60,4 +60,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/category/update/{id}', [CategoryController::class, 'update']);
     Route::get('/category/show/{id}', [CategoryController::class, 'show']);
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy']);
+
+    Route::get('/order', [OrderController::class, 'index']);
+    Route::post('/order/add', [OrderController::class, 'store']);
+    Route::post('/order/update/{id}', [OrderController::class, 'update']);
+    Route::get('/order/show/{id}', [OrderController::class, 'show']);
+    Route::get('/order/delete/{id}', [OrderController::class, 'destroy']);
 });
