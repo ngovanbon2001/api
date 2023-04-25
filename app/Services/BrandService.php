@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\Constants;
 use App\Repositories\Contracts\BrandRepositoryInterface;
 use App\Services\Contracts\BrandServiceInterface;
 use App\Supports\RespondResource;
@@ -19,7 +20,7 @@ class BrandService implements BrandServiceInterface
 
     public function all()
     {
-        return $this->brandRepository->paginate($this->paginateFe);
+        return $this->brandRepository->where('active', '<', Constants::DELETE)->paginate(Constants::PAGINATE_BE);
     }
 
     public function create(array $attributes)
