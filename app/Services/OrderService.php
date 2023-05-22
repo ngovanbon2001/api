@@ -30,27 +30,11 @@ class OrderService implements OrderServiceInterface
 
     public function create(array $attributes)
     {
-        if (isset($attributes['image_url'])) {
-            $image = $attributes['image_url'];
-
-            $attributes['image_url'] = handleImage($image);
-        } else {
-            $attributes['image_url'] = "no-image.png";
-        }
-
         return $this->orderRepository->create($attributes);
     }
 
     public function update(array $attributes, int $id)
     {
-        if (isset($attributes['image_url'])) {
-            $image = $attributes['image_url'];
-
-            $attributes['image_url'] = handleImage($image);
-        } else {
-            $attributes['image_url'] = $attributes['imageOld'];
-        }
-
         return $this->orderRepository->update($attributes, $id);
     }
 
