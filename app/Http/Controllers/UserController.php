@@ -6,7 +6,8 @@ use App\Services\Contracts\UserServiceInterface;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Str;
+use Laravel\Passport\Token;
 
 class UserController extends Controller
 {
@@ -73,19 +74,31 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $data = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($data)) {
+        if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('Laravel8PassportAuth')->accessToken;
-            $token = 'Bearer ' . $token;
-            return response()->json(['data' => $user, 'token' => $token], 200);
-        } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
+            $tokenResult = $user->createToken('MyApp');
+            $accessToken = $tokenResult->accessToken;
+            
+            $refreshToken = new Token([
+                'id' => hash('sha256', Str::random(40)),
+                'user_id' => $user->id,
+                'client_id' => 11,
+                'name' => 'MyApp',
+                'scopes' => [],
+                'revoked' => false,
+                'expires_at' => now()->addDays(7),
+            ]);
+            $refreshToken->save();
+        
+            return response()->json([
+                'token' => $accessToken,
+                'refresh_token' => $refreshToken->id,
+            ]);
         }
+    
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     public function logout()
