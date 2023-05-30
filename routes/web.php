@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\seesions;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/test/{lang}', function($lang) {
+    if (! in_array($lang, ['vi', 'en'])) {
+        dd(1);
+    } 
+    session()->put('locate', $lang);
+    return view('test');
+})->name('lang')->middleware('lang');
+

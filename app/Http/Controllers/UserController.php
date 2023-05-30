@@ -93,7 +93,8 @@ class UserController extends Controller
             $refreshToken->save();
         
             return response()->json([
-                'token' => $accessToken,
+                'data' => $user,
+                'token' => 'Bearer '. $accessToken,
                 'refresh_token' => $refreshToken->id,
             ]);
         }
