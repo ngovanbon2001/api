@@ -23,7 +23,8 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
 
     public function findTitle($title)
     {
-        return $this->model->where('title', 'like', '%'.$title.'%')->where('active', '<', Constants::DELETE)->limit(Constants::PAGINATE_BE)->get();
+        $this->applyConditions([['title', 'like', '%'.$title.'%'], ['active', '<', Constants::DELETE]]);
+        return $this->model->limit(Constants::PAGINATE_BE)->get()->toArray();
     }
 
 }
