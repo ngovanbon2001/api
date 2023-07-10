@@ -50,9 +50,9 @@ class BrandService implements BrandServiceInterface
         return $this->brandRepository->update($attributes, $id);
     }
 
-    public function delete(array $attributes, int $id)
+    public function delete(int $id)
     {
-        return $this->brandRepository->update($attributes, $id);
+        return $this->brandRepository->where("id", "=", $id)->delete();
     }
 
     public function detail(int $id)

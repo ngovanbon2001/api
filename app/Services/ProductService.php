@@ -49,9 +49,9 @@ class ProductService implements ProductServiceInterface
         return $this->productReponsitory->update($attributes, $id);
     }
 
-    public function delete(array $attributes, int $id)
+    public function delete(int $id)
     {
-        return $this->productReponsitory->update($attributes, $id);
+        return $this->productReponsitory->where("id", "=", $id)->delete();
     }
 
     public function detail(int $id)

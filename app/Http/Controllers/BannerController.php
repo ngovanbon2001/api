@@ -24,18 +24,6 @@ class BannerController extends Controller
     {
         $attributes = $request->all();
 
-        // $imageName = "";
-
-        // if ($request->has('image_url')) {
-        //     $image = $request->file('image_url');
-        //     $imageName = $image->getClientOriginalName();
-        //     $image->move('images',  $imageName);
-        // } else {
-        //     $imageName = "no-image.png";
-        // }
-
-        // $attributes['image_url'] = $imageName;
-
         $data = $this->bannerService->create($attributes);
 
         return $this->handleRepond($data);
@@ -51,17 +39,6 @@ class BannerController extends Controller
     public function update(UpdateBannerRequest $request, $id)
     {
         $attributes = $request->all();
-
-        // $imageName = "";
-
-        // if ($request->has('image_url')) {
-        //     $image = $request->file('image_url');
-        //     $imageName = $image->getClientOriginalName();
-        // } else {
-        //     $imageName = $attributes['imageOld'];
-        // }
-
-        // $attributes['image_url'] = $imageName;
 
         $data = $this->bannerService->update($attributes, $id);
 

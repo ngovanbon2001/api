@@ -49,9 +49,9 @@ class BannerService implements BannerServiceInterface
         return $this->bannerRepository->update($attributes, $id);
     }
 
-    public function delete(array $attributes, int $id)
+    public function delete(int $id)
     {
-        return $this->bannerRepository->update($attributes, $id);
+        return $this->bannerRepository->where("id", "=", $id)->delete();
     }
 
     public function detail(int $id)

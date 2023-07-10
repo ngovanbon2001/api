@@ -2,21 +2,17 @@
 
 namespace App\Exceptions;
 
-use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\ValidationException;
-use Laravel\Passport\Exceptions\OAuthServerException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
-use App\Http\Controllers\CommonController;
 use App\Supports\RespondResource;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class Handler extends ExceptionHandler
 {
@@ -45,50 +41,24 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param Throwable $e
-     * @return void
+        /**
+     * Render an exception into an HTTP response.
      *
      * @throws Throwable
      */
-    // public function report(Throwable $e)
-    // {
-    //     $method = app('request')->getMethod();
-    //     if ($e instanceof HttpException) {
-    //         Log::warning(get_class($e) . ': (Code:' . $e->getStatusCode() . ') ' . $e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine() . '([' . $method . '] Request: ' . URL::full() . ')');
-    //         return;
-    //     } else if ($e instanceof ConnectException) {
-    //         Log::alert('Call uri: ' . $e->getRequest()->getUri() . ' get time out with exception: ' . $e->getTraceAsString());
-    //         return;
-    //     }
-
-    //     parent::report($e);
-    // }
-
-    public function render($request, Throwable $e)
+    public function render($request, Throwable $exception)
     {
-        // if ($e instanceof MethodNotAllowedHttpException) {
-        //     return responder()->method_not_allowed();
-        // } elseif ($e instanceof ValidationException) {
-        //     $error = collect($e->errors())->first();
-        //     return responder()->bad_request($error[0] ?: "");
-        // } elseif ($e instanceof NotFoundHttpException) {
-        //     return responder()->not_found();
-        // } elseif ($e instanceof AuthenticationException || $e instanceof OAuthServerException) {
-        //     return responder()->unauthorized();
-        // } elseif ($e instanceof AuthorizationException) {
-        //     return responder()->forbidden();
-        // }
-
-        if ($e instanceof ValidationException) {
-            $error = collect($e->errors())->first();
-            return $this->fail($error[0]);
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return $this->fail($exception->getMessage(), ResponseAlias::HTTP_METHOD_NOT_ALLOWED);
+        } else if ($exception instanceof ValidationException) {
+            $errors = $exception->errors();
+            $error = collect($errors)->first();
+            $errorStr = $error ? $error[0] : '';
+            return $this->fail($errorStr, ResponseAlias::HTTP_BAD_REQUEST);
+        } else if ($exception instanceof NotFoundHttpException) {
+            return $this->fail('Request not found', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return $this->fail($e->getMessage());
+        Log::info('[RENDER EXCEPTION] - '.$exception->getMessage());
+        return $this->fail($exception->getMessage());
     }
 }

@@ -50,9 +50,9 @@ class CategoryService implements CategoryServiceInterface
         return $this->categoryReponsitoryInterface->update($attributes, $id);
     }
 
-    public function delete(array $attributes, int $id)
+    public function delete(int $id)
     {
-        return $this->categoryReponsitoryInterface->update($attributes, $id);
+        return $this->categoryReponsitoryInterface->where("id", "=", $id)->delete();
     }
 
     public function detail(int $id)

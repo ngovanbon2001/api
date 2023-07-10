@@ -10,7 +10,7 @@ interface BrandServiceInterface
 
     public function update(array $attributes, int $id);
 
-    public function delete(array $attributes, int $id);
+    public function delete(int $id);
 
     public function detail(int $id);
 }

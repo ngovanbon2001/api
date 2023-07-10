@@ -33,9 +33,9 @@ class OrderService implements OrderServiceInterface
         return $this->orderRepository->update($attributes, $id);
     }
 
-    public function delete(array $attributes, int $id)
+    public function delete(int $id)
     {
-        return $this->orderRepository->update($attributes, $id);
+        return $this->orderRepository->where("id", "=", $id)->delete();
     }
 
     public function detail(int $id)
