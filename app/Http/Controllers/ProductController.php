@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\Contracts\ProductServiceInterface;
 use App\Http\Requests\AddProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -15,9 +16,9 @@ class ProductController extends Controller
         return $this->productServiceInterface = $productServiceInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->productServiceInterface->all();
+        $data = $this->productServiceInterface->list($request->all());
 
         return $this->handleRepond($data);
     }

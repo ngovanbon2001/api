@@ -16,7 +16,7 @@ class UserService implements UserServiceInterface
 
     public function list(array $attributes)
     {
-        return $this->userRepository->list($attributes);
+        return $this->userRepository->findWhere($attributes);
     }
 
     public function detailTest(string $email)
@@ -41,9 +41,6 @@ class UserService implements UserServiceInterface
 
     public function detail(int $id)
     {
-        $conditions = [
-            'id' => $id
-        ];
-        return $this->userRepository->findWhereFirst($conditions);
+        return $this->userRepository->find($id);
     }
 }

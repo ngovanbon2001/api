@@ -17,9 +17,9 @@ class ProductService implements ProductServiceInterface
         return $this->productReponsitory = $repositoryInterface;
     }
 
-    public function all()
+    public function list(array $attributes)
     {
-        return $this->productReponsitory->paginate($this->paginateFe);
+        return $this->productReponsitory->findWhere($attributes);
     }
 
     public function create(array $attributes)
@@ -56,9 +56,6 @@ class ProductService implements ProductServiceInterface
 
     public function detail(int $id)
     {
-        $conditions = [
-            'id' => $id
-        ];
-        return $this->productReponsitory->findWhereFirst($conditions);
+        return $this->productReponsitory->find($id);
     }
 }

@@ -16,9 +16,9 @@ class BrandController extends Controller
         return $this->brandServiceInterface = $brandServiceInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->brandServiceInterface->all();
+        $data = $this->brandServiceInterface->list($request->all());
 
         return $this->handleRepond($data);
     }

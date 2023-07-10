@@ -4,7 +4,7 @@ namespace App\Services\Contracts;
 
 interface ProductServiceInterface
 {
-    public function all();
+    public function list(array $attributes);
 
     public function create(array $attributes);
 

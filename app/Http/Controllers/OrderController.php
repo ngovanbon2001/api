@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Services\Contracts\OrderServiceInterface;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -14,9 +15,9 @@ class OrderController extends Controller
         $this->orderService = $orderServiceInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->orderService->all();
+        $data = $this->orderService->list($request->all());
 
         return $this->handleRepond($data);
     }

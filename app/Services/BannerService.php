@@ -18,14 +18,9 @@ class BannerService implements BannerServiceInterface
         return $this->bannerRepository = $bannerRepository;
     }
 
-    public function all()
+    public function list(array $attributes)
     {
-        return $this->bannerRepository->where('active', '<', Constants::DELETE)->paginate(self::paginateBe);
-    }
-
-    public function list(string $title)
-    {
-        return $this->bannerRepository->findTitle($title);
+        return $this->bannerRepository->findWhere($attributes)->toArray();
     }
 
     public function create(array $attributes)
@@ -61,10 +56,7 @@ class BannerService implements BannerServiceInterface
 
     public function detail(int $id)
     {
-        $conditions = [
-            'id' => $id
-        ];
-        return $this->bannerRepository->findWhereFirst($conditions);
+        return $this->bannerRepository->find($id);
     }
 
 }

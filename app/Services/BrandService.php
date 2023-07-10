@@ -18,7 +18,7 @@ class BrandService implements BrandServiceInterface
         return $this->brandRepository = $repositoryInterface;
     }
 
-    public function all()
+    public function list(array $attributes)
     {
         return $this->brandRepository->where('active', '<', Constants::DELETE)->paginate(Constants::PAGINATE_BE);
     }
@@ -57,6 +57,6 @@ class BrandService implements BrandServiceInterface
 
     public function detail(int $id)
     {
-        return $this->brandRepository->detail($id);
+        return $this->brandRepository->find($id);
     }
 }

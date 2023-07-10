@@ -29,3 +29,7 @@ Route::get('/test/{lang}', function($lang) {
     return view('test');
 })->name('lang')->middleware('lang');
 
+Route::get('test', function() {
+    return GUARD_DRIVER;
+});
+

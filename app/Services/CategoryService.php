@@ -18,9 +18,9 @@ class CategoryService implements CategoryServiceInterface
         return $this->categoryReponsitoryInterface = $repositoryInterface;
     }
 
-    public function all()
+    public function list(array $attributes)
     {
-        return $this->categoryReponsitoryInterface->paginate($this->paginateFe);
+        return $this->categoryReponsitoryInterface->findWhere($attributes);
     }
 
     public function create(array $attributes)
@@ -57,6 +57,6 @@ class CategoryService implements CategoryServiceInterface
 
     public function detail(int $id)
     {
-        return $this->categoryReponsitoryInterface->detail($id);
+        return $this->categoryReponsitoryInterface->find($id);
     }
 }

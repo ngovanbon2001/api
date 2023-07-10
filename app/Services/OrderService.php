@@ -18,14 +18,9 @@ class OrderService implements OrderServiceInterface
         return $this->orderRepository = $orderRepositoryInterface;
     }
 
-    public function all()
+    public function list(array $attributes)
     {
-        return $this->orderRepository->paginate(self::paginateBe);
-    }
-
-    public function list(string $title)
-    {
-        return $this->orderRepository->findTitle($title);
+        return $this->orderRepository->findWhere($attributes);
     }
 
     public function create(array $attributes)
@@ -45,10 +40,6 @@ class OrderService implements OrderServiceInterface
 
     public function detail(int $id)
     {
-        $conditions = [
-            'id' => $id
-        ];
-        return $this->orderRepository->findWhereFirst($conditions);
+        return $this->orderRepository->find($id);
     }
-
 }

@@ -4,9 +4,7 @@ namespace App\Services\Contracts;
 
 interface BannerServiceInterface
 {
-    public function all();
-
-    public function list(string $title);
+    public function list(array $attributes);
 
     public function create(array $attributes);
 

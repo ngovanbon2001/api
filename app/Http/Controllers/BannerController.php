@@ -15,19 +15,9 @@ class BannerController extends Controller
         return $this->bannerService = $bannerServiceInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->bannerService->all();
-
-        return $this->handleRepond($data);
-    }
-
-    public function list(Request $request)
-    {
-        if(isset($request->title)) {
-            return $this->handleRepond($this->bannerService->list($request->title));
-        }
-        return $this->bannerService->all();
+        return $this->handleRepond($this->bannerService->list($request->all()));
     }
 
     public function store(AddBannerRequest $request)

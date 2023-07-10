@@ -16,9 +16,9 @@ class CategoryController extends Controller
         return $this->cateServiceInterface = $cateServiceInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->cateServiceInterface->all();
+        $data = $this->cateServiceInterface->list($request->all());
 
         return $this->handleRepond($data);
     }
