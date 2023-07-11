@@ -14,10 +14,4 @@ class CategoryReponsitory extends BaseRepository implements CategoryReponsitoryI
     {
         return Category::class;
     }
-
-    public function detail(int $id)
-    {
-        return $this->model->where('id', $id)->with('product')->get();
-    }
-
 }

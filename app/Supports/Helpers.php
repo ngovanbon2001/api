@@ -1,5 +1,7 @@
 <?php
 
+use App\Constants\Constants;
+
 if (!function_exists('handleImage')) {
     function handleImage($fileImage): string
     {
@@ -12,5 +14,17 @@ if (!function_exists('handleImage')) {
         }
 
         return $imageName;
+    }
+}
+
+if (!function_exists('condition')) {
+    function condition(array $conditions): array
+    {
+       foreach ($conditions as $key => $value) {
+            if ($key == Constants::UNSET_CONDITION || in_array($value[2], Constants::UNSET)) {
+                unset($conditions[$key]);
+            }
+       }
+       return $conditions;
     }
 }

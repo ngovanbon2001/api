@@ -20,7 +20,7 @@ class OrderService implements OrderServiceInterface
 
     public function list(array $attributes)
     {
-        return $this->orderRepository->findWhere($attributes);
+        return $this->orderRepository->list($attributes);
     }
 
     public function create(array $attributes)

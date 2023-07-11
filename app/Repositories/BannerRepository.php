@@ -15,9 +15,4 @@ class BannerRepository extends BaseRepository implements BannerRepositoryInterfa
     {
         return Banner::class;
     }
-
-    public function list($conditions) {
-        $this->applyConditions($conditions);
-        return $this->model->get()->toArray();
-    }
 }

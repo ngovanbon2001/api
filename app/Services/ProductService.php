@@ -19,7 +19,7 @@ class ProductService implements ProductServiceInterface
 
     public function list(array $attributes)
     {
-        return $this->productReponsitory->findWhere($attributes);
+        return $this->productReponsitory->list($attributes);
     }
 
     public function create(array $attributes)

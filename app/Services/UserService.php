@@ -16,7 +16,7 @@ class UserService implements UserServiceInterface
 
     public function list(array $attributes)
     {
-        return $this->userRepository->findWhere($attributes);
+        return $this->userRepository->list($attributes);
     }
 
     public function detailTest(string $email)

@@ -20,7 +20,7 @@ class BannerService implements BannerServiceInterface
 
     public function list(array $attributes)
     {
-        return $this->bannerRepository->findWhere($attributes)->toArray();
+        return $this->bannerRepository->list($attributes)->toArray();
     }
 
     public function create(array $attributes)

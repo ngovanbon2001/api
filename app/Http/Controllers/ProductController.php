@@ -50,9 +50,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $attributes = ['active' => 2];
-
-        $data = $this->productServiceInterface->delete($attributes, $id);
+        $data = $this->productServiceInterface->delete($id);
 
         return $this->handleRepond($data);
     }

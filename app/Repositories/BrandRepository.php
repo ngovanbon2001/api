@@ -14,10 +14,4 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     {
         return Brand::class;
     }
-
-    public function detail(int $id)
-    {
-        return $this->model->where('id', $id)->with('product')->get();
-    }
-
 }

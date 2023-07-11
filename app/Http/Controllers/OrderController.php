@@ -49,9 +49,7 @@ class OrderController extends Controller
 
     public function destroy($id)
     {
-        $attributes = ['active' => 2];
-
-        $data = $this->orderService->delete($attributes, $id);
+        $data = $this->orderService->delete($id);
 
         return $this->handleRepond($data);
     }

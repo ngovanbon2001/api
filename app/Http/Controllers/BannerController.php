@@ -47,9 +47,7 @@ class BannerController extends Controller
 
     public function destroy($id)
     {
-        $attributes = ['active' => 2];
-
-        $data = $this->bannerService->delete($attributes, $id);
+        $data = $this->bannerService->delete($id);
 
         return $this->handleRepond($data);
     }

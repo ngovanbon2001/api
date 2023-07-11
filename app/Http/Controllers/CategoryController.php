@@ -50,9 +50,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        $attributes = ['active' => 2];
-
-        $data = $this->cateServiceInterface->delete($attributes, $id);
+        $data = $this->cateServiceInterface->delete($id);
 
         return $this->handleRepond($data);
     }

@@ -50,9 +50,7 @@ class BrandController extends Controller
 
     public function destroy($id)
     {
-        $attributes = ['active' => 2];
-
-        $data = $this->brandServiceInterface->delete($attributes, $id);
+        $data = $this->brandServiceInterface->delete($id);
 
         return $this->handleRepond($data);
     }

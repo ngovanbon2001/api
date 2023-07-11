@@ -15,4 +15,6 @@ interface RepositoryInterface extends \Prettus\Repository\Contracts\RepositoryIn
     public function updateMultipleRecord(array $values);
 
     public function updateByWhere(array $conditions, array $value);
+
+    public function list(array $conditions);
 }

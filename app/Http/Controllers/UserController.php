@@ -50,9 +50,9 @@ class UserController extends Controller
         return $this->respond($data);
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
-        $data = $this->userService->delete($request->id);
+        $data = $this->userService->delete($id);
 
         return $this->respond($data);
     }

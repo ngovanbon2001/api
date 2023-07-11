@@ -20,7 +20,7 @@ class BrandService implements BrandServiceInterface
 
     public function list(array $attributes)
     {
-        return $this->brandRepository->where('active', '<', Constants::DELETE)->paginate(Constants::PAGINATE_BE);
+        return $this->brandRepository->list($attributes);
     }
 
     public function create(array $attributes)

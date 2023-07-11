@@ -20,7 +20,7 @@ class CategoryService implements CategoryServiceInterface
 
     public function list(array $attributes)
     {
-        return $this->categoryReponsitoryInterface->findWhere($attributes);
+        return $this->categoryReponsitoryInterface->list($attributes);
     }
 
     public function create(array $attributes)

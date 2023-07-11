@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Constants\Constants;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -196,5 +197,16 @@ abstract class BaseRepository extends L5Repository implements RepositoryInterfac
             return true;
         }
         return false;
+    }
+
+    /**
+     * list paginate
+     * @param array $conditions
+     * @return array
+     */
+    public function list(array $conditions)
+    {
+        $this->applyConditions(condition($conditions));
+        return $this->model->paginate(Constants::PAGINATE_BE);
     }
 }
