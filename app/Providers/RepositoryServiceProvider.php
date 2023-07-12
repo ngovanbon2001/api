@@ -8,9 +8,11 @@ use App\Repositories\CategoryReponsitory;
 use App\Repositories\Contracts\BannerRepositoryInterface;
 use App\Repositories\Contracts\BrandRepositoryInterface;
 use App\Repositories\Contracts\CategoryReponsitoryInterface;
+use App\Repositories\Contracts\ImageRepositoryInterface;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use App\Repositories\Contracts\ProductReponsitoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\ImageRepository;
 use App\Repositories\OrderRespository;
 use App\Repositories\ProductReponsitory;
 use App\Repositories\UserRepository;
@@ -35,6 +37,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProductReponsitoryInterface::class, ProductReponsitory::class);
         $this->app->bind(CategoryReponsitoryInterface::class, CategoryReponsitory::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRespository::class);
+        $this->app->bind(ImageRepositoryInterface::class, ImageRepository::class);
     }
 
     /**

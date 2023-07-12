@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
@@ -66,4 +67,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/order/update/{id}', [OrderController::class, 'update']);
     Route::get('/order/show/{id}', [OrderController::class, 'show']);
     Route::get('/order/delete/{id}', [OrderController::class, 'destroy']);
+
+    Route::get('/image', [ImageController::class, 'index']);
+    Route::post('/image/add', [ImageController::class, 'store']);
+    Route::post('/image/update/{id}', [ImageController::class, 'update']);
+    Route::get('/image/show/{id}', [ImageController::class, 'show']);
+    Route::get('/image/delete/{id}', [ImageController::class, 'destroy']);
 });
