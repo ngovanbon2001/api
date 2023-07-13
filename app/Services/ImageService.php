@@ -24,15 +24,14 @@ class ImageService implements ImageServiceInterface
 
     public function create(array $attributes)
     {
-        if (isset($attributes['image_url'])) {
-            $image = $attributes['image_url'];
+        $attribute = [];
 
-            $attributes['image_url'] = handleImage($image);
-        } else {
-            $attributes['image_url'] = "no-image.png";
+        foreach ($attributes['image_url'] as $key => $value) {
+            $attribute[] = $attributes;
+            $attribute[$key]['image_url'] = handleImage($value);
         }
 
-        return $this->imageRepositoryInterface->create($attributes);
+        return $this->imageRepositoryInterface->insertOrUpdateBatch($attribute);
     }
 
     

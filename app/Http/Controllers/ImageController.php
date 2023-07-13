@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateImageRequest;
 use App\Services\Contracts\ImageServiceInterface;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class ImageController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function store(Request $request)
+    public function store(CreateImageRequest $request)
     {
         $attributes = $request->all();
 

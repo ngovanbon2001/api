@@ -158,6 +158,13 @@ abstract class BaseRepository extends L5Repository implements RepositoryInterfac
         return false;
     }
 
+    /**
+     * example param
+     * [
+     *      4 => ["name" => "Product Name", "cost" => 1111], 
+     *      2 => ["name" => "Product Name 1", "cost" => 1112]
+     * ]
+     */
     public function updateMultipleRecord(array $values)
     {
         $table = $this->model->getTable();
