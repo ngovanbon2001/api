@@ -7,7 +7,7 @@ use App\Services\Contracts\BrandServiceInterface;
 
 class BrandService implements BrandServiceInterface
 {
-    protected BrandRepositoryInterface $brandRepository;
+    protected $brandRepository;
 
     /**
      * @param BrandRepositoryInterface $repositoryInterface

@@ -13,6 +13,4 @@ interface UserServiceInterface
     public function delete(int $id);
 
     public function detail(int $id);
-
-    public function detailTest(string $email);
 }

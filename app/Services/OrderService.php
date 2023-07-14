@@ -2,42 +2,62 @@
 
 namespace App\Services;
 
-use App\Constants\Constants;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use App\Services\Contracts\OrderServiceInterface;
 
 class OrderService implements OrderServiceInterface
 {
-    const paginateFe = 10;
-    const paginateBe = 5;
-
     protected $orderRepository;
 
+    /**
+     * @param OrderRepositoryInterface $orderRepositoryInterface
+     */
     public function __construct(OrderRepositoryInterface $orderRepositoryInterface)
     {
         return $this->orderRepository = $orderRepositoryInterface;
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function list(array $attributes)
     {
         return $this->orderRepository->list($attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function create(array $attributes)
     {
         return $this->orderRepository->create($attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @param int $id
+     * @return mixed
+     */
     public function update(array $attributes, int $id)
     {
         return $this->orderRepository->update($attributes, $id);
     }
 
-    public function delete(int $id)
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id): int
     {
-        return $this->orderRepository->where("id", "=", $id)->delete();
+        return $this->orderRepository->delete($id);
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function detail(int $id)
     {
         return $this->orderRepository->find($id);

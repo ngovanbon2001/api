@@ -7,7 +7,7 @@ use App\Services\Contracts\BannerServiceInterface;
 
 class BannerService implements BannerServiceInterface
 {
-    protected BannerRepositoryInterface $bannerRepository;
+    protected $bannerRepository;
 
     /**
      * @param BannerRepositoryInterface $bannerRepository

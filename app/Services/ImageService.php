@@ -8,20 +8,29 @@ use App\Supports\RespondResource;
 
 class ImageService implements ImageServiceInterface
 {
-    use RespondResource;
-
     protected $imageRepositoryInterface;
 
+    /**
+     * @param ImageRepositoryInterface $imageRepositoryInterface
+     */
     public function __construct(ImageRepositoryInterface $imageRepositoryInterface)
     {
         return $this->imageRepositoryInterface = $imageRepositoryInterface;
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function list(array $attributes)
     {
         return $this->imageRepositoryInterface->list($attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function create(array $attributes)
     {
         $attribute = [];
@@ -34,7 +43,11 @@ class ImageService implements ImageServiceInterface
         return $this->imageRepositoryInterface->insertOrUpdateBatch($attribute);
     }
 
-    
+    /**
+     * @param array $attributes
+     * @param int $id
+     * @return mixed
+     */
     public function update(array $attributes, int $id)
     {
         if (isset($attributes['image_url'])) {
@@ -48,11 +61,19 @@ class ImageService implements ImageServiceInterface
         return $this->imageRepositoryInterface->update($attributes, $id);
     }
 
-    public function delete(int $id)
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id): int
     {
-        return $this->imageRepositoryInterface->where("id", "=", $id)->delete();
+        return $this->imageRepositoryInterface->delete($id);
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function detail(int $id)
     {
         return $this->imageRepositoryInterface->find($id);
