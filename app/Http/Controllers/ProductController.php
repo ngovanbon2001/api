@@ -5,25 +5,37 @@ namespace App\Http\Controllers;
 use App\Services\Contracts\ProductServiceInterface;
 use App\Http\Requests\AddProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    protected $productServiceInterface;
+    protected ProductServiceInterface $productServiceInterface;
 
+    /**
+     * @param ProductServiceInterface $productServiceInterface
+     */
     public function __construct(ProductServiceInterface $productServiceInterface)
     {
         return $this->productServiceInterface = $productServiceInterface;
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
         $data = $this->productServiceInterface->list($request->all());
 
         return $this->handleRepond($data);
     }
 
-    public function store(AddProductRequest $request)
+    /**
+     * @param AddProductRequest $request
+     * @return JsonResponse
+     */
+    public function store(AddProductRequest $request): JsonResponse
     {
         $attributes = $request->all();
 
@@ -32,14 +44,23 @@ class ProductController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function show($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
     {
         $data = $this->productServiceInterface->detail($id);
 
         return $this->handleRepond($data);
     }
 
-    public function update(UpdateProductRequest $request, $id)
+    /**
+     * @param UpdateProductRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(UpdateProductRequest $request, int $id): JsonResponse
     {
         $attributes = $request->all();
 
@@ -48,7 +69,11 @@ class ProductController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
     {
         $data = $this->productServiceInterface->delete($id);
 

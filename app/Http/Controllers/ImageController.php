@@ -4,24 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateImageRequest;
 use App\Services\Contracts\ImageServiceInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    protected $imageServiceInterface;
+    protected ImageServiceInterface $imageServiceInterface;
+
+    /**
+     * @param ImageServiceInterface $imageServiceInterface
+     */
     public function __construct(ImageServiceInterface $imageServiceInterface)
     {
         $this->imageServiceInterface = $imageServiceInterface;
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
         $data = $this->imageServiceInterface->list($request->all());
 
         return $this->handleRepond($data);
     }
 
-    public function store(CreateImageRequest $request)
+    /**
+     * @param CreateImageRequest $request
+     * @return JsonResponse
+     */
+    public function store(CreateImageRequest $request): JsonResponse
     {
         $attributes = $request->all();
 
@@ -30,14 +43,23 @@ class ImageController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function show($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
     {
         $data = $this->imageServiceInterface->detail($id);
 
         return $this->handleRepond($data);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(Request $request, int $id): JsonResponse
     {
         $attributes = $request->all();
 
@@ -46,7 +68,11 @@ class ImageController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
     {
         $data = $this->imageServiceInterface->delete($id);
 

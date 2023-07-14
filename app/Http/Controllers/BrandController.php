@@ -3,27 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Services\Contracts\BrandServiceInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 
 class BrandController extends Controller
 {
-    protected $brandServiceInterface;
 
+    protected BrandServiceInterface $brandServiceInterface;
+
+    /**
+     * @param BrandServiceInterface $brandServiceInterface
+     */
     public function __construct(BrandServiceInterface $brandServiceInterface)
     {
         return $this->brandServiceInterface = $brandServiceInterface;
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
         $data = $this->brandServiceInterface->list($request->all());
 
         return $this->handleRepond($data);
     }
 
-    public function store(AddBrandRequest $request)
+    /**
+     * @param AddBrandRequest $request
+     * @return JsonResponse
+     */
+    public function store(AddBrandRequest $request): JsonResponse
     {
         $attributes = $request->all();
 
@@ -32,14 +45,23 @@ class BrandController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function show($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
     {
         $data = $this->brandServiceInterface->detail($id);
 
         return $this->handleRepond($data);
     }
 
-    public function update(UpdateBrandRequest $request, $id)
+    /**
+     * @param UpdateBrandRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(UpdateBrandRequest $request, int $id): JsonResponse
     {
         $attributes = $request->all();
 
@@ -48,7 +70,11 @@ class BrandController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
     {
         $data = $this->brandServiceInterface->delete($id);
 

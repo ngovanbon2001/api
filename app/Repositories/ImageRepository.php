@@ -19,5 +19,5 @@ class ImageRepository extends BaseRepository implements ImageRepositoryInterface
     public function model(): string
     {
         return Product_image::class;
-    }    
+    }
 }

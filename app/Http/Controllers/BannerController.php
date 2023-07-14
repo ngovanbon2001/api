@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\Contracts\BannerServiceInterface;
 use App\Http\Requests\AddBannerRequest;
@@ -9,18 +10,30 @@ use App\Http\Requests\UpdateBannerRequest;
 
 class BannerController extends Controller
 {
-    protected $bannerService;
+    protected BannerServiceInterface $bannerService;
+
+    /**
+     * @param BannerServiceInterface $bannerServiceInterface
+     */
     public function __construct(BannerServiceInterface $bannerServiceInterface)
     {
         return $this->bannerService = $bannerServiceInterface;
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
         return $this->handleRepond($this->bannerService->list($request->all()));
     }
 
-    public function store(AddBannerRequest $request)
+    /**
+     * @param AddBannerRequest $request
+     * @return JsonResponse
+     */
+    public function store(AddBannerRequest $request): JsonResponse
     {
         $attributes = $request->all();
 
@@ -29,14 +42,23 @@ class BannerController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function show($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
     {
         $data = $this->bannerService->detail($id);
 
         return $this->handleRepond($data);
     }
 
-    public function update(UpdateBannerRequest $request, $id)
+    /**
+     * @param UpdateBannerRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(UpdateBannerRequest $request, int $id): JsonResponse
     {
         $attributes = $request->all();
 
@@ -45,7 +67,11 @@ class BannerController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
     {
         $data = $this->bannerService->delete($id);
 

@@ -2,27 +2,34 @@
 
 namespace App\Services;
 
-use App\Constants\Constants;
 use App\Repositories\Contracts\BrandRepositoryInterface;
 use App\Services\Contracts\BrandServiceInterface;
-use App\Supports\RespondResource;
 
 class BrandService implements BrandServiceInterface
 {
-    use RespondResource;
+    protected BrandRepositoryInterface $brandRepository;
 
-    protected $brandRepository;
-
+    /**
+     * @param BrandRepositoryInterface $repositoryInterface
+     */
     public function __construct(BrandRepositoryInterface $repositoryInterface)
     {
         return $this->brandRepository = $repositoryInterface;
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function list(array $attributes)
     {
         return $this->brandRepository->list($attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function create(array $attributes)
     {
         if (isset($attributes['image_url'])) {
@@ -36,7 +43,11 @@ class BrandService implements BrandServiceInterface
         return $this->brandRepository->create($attributes);
     }
 
-    
+    /**
+     * @param array $attributes
+     * @param int $id
+     * @return mixed
+     */
     public function update(array $attributes, int $id)
     {
         if (isset($attributes['image_url'])) {
@@ -46,15 +57,23 @@ class BrandService implements BrandServiceInterface
         } else {
             $attributes['image_url'] = $attributes['imageOld'];
         }
-        
+
         return $this->brandRepository->update($attributes, $id);
     }
 
-    public function delete(int $id)
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id): int
     {
-        return $this->brandRepository->where("id", "=", $id)->delete();
+        return $this->brandRepository->delete($id);
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function detail(int $id)
     {
         return $this->brandRepository->find($id);

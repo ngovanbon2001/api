@@ -2,27 +2,34 @@
 
 namespace App\Services;
 
-use App\Constants\Constants;
 use App\Repositories\Contracts\BannerRepositoryInterface;
 use App\Services\Contracts\BannerServiceInterface;
 
 class BannerService implements BannerServiceInterface
 {
-    const paginateFe = 10;
-    const paginateBe = 5;
+    protected BannerRepositoryInterface $bannerRepository;
 
-    protected $bannerRepository;
-
+    /**
+     * @param BannerRepositoryInterface $bannerRepository
+     */
     public function __construct(BannerRepositoryInterface $bannerRepository)
     {
         return $this->bannerRepository = $bannerRepository;
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function list(array $attributes)
     {
         return $this->bannerRepository->list($attributes)->toArray();
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public function create(array $attributes)
     {
         if (isset($attributes['image_url'])) {
@@ -36,6 +43,11 @@ class BannerService implements BannerServiceInterface
         return $this->bannerRepository->create($attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @param int $id
+     * @return mixed
+     */
     public function update(array $attributes, int $id)
     {
         if (isset($attributes['image_url'])) {
@@ -49,14 +61,21 @@ class BannerService implements BannerServiceInterface
         return $this->bannerRepository->update($attributes, $id);
     }
 
-    public function delete(int $id)
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id): int
     {
-        return $this->bannerRepository->where("id", "=", $id)->delete();
+        return $this->bannerRepository->delete($id);
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function detail(int $id)
     {
         return $this->bannerRepository->find($id);
     }
-
 }

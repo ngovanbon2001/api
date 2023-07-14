@@ -3,27 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Services\Contracts\CategoryServiceInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddCateRequest;
 use App\Http\Requests\UpdateCateRequest;
 
 class CategoryController extends Controller
 {
-    protected $cateServiceInterface;
+    protected CategoryServiceInterface $cateServiceInterface;
 
+    /**
+     * @param CategoryServiceInterface $cateServiceInterface
+     */
     public function __construct(CategoryServiceInterface $cateServiceInterface)
     {
         return $this->cateServiceInterface = $cateServiceInterface;
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
         $data = $this->cateServiceInterface->list($request->all());
 
         return $this->handleRepond($data);
     }
 
-    public function store(AddCateRequest $request)
+    /**
+     * @param AddCateRequest $request
+     * @return JsonResponse
+     */
+    public function store(AddCateRequest $request): JsonResponse
     {
         $attributes = $request->all();
 
@@ -32,14 +44,23 @@ class CategoryController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function show($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
     {
         $data = $this->cateServiceInterface->detail($id);
 
         return $this->handleRepond($data);
     }
 
-    public function update(UpdateCateRequest $request, $id)
+    /**
+     * @param UpdateCateRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(UpdateCateRequest $request, int $id): JsonResponse
     {
         $attributes = $request->all();
 
@@ -48,7 +69,11 @@ class CategoryController extends Controller
         return $this->handleRepond($data);
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
     {
         $data = $this->cateServiceInterface->delete($id);
 
