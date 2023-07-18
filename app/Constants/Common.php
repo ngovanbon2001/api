@@ -40,19 +40,4 @@ class Common
     const DRIVER_BUSY = 2;
 
     const PER_PAGE_DEFAULT = 10;
-
-    # Url account service
-    const DRIVER_ONLINE_URL = 'api/v1/driver/online';
-    const DRIVER_DETAIL_URL = 'api/v1/driver/detail/';
-    const CUSTOMER_DETAIL_URL = 'api/v1/customer/detail/';
-    const CONFIRM_DRIVER_TOKEN_URL = 'api/v1/driver/confirm-token';
-    const CONFIRM_CUSTOMER_TOKEN_URL = 'api/v1/customer/confirm-token';
-
-    # Url payment service
-    const PAYMENT_URL = 'api/v1/payments/handle';
-    const REFUND_URL = 'api/v1/payments/refund';
-
-    # Url notification service
-    const CREATE_DRIVER_NOTIFICATION = 'api/v1/notify/notification-driver';
-    const CREATE_CUSTOMER_NOTIFICATION = 'api/v1/notify/notification-customer';
 }
