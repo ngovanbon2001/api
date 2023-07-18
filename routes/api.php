@@ -30,7 +30,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);   
 });
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware(['auth:api'])->group(function () {
     Route::post('/logout', [App\Http\Controllers\UserController::class, 'logout']);
     Route::post('/detail', [App\Http\Controllers\UserController::class, 'detailTest']);
     Route::post('/list', [App\Http\Controllers\UserController::class, 'list']);

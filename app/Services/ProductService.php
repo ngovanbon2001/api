@@ -23,7 +23,7 @@ class ProductService implements ProductServiceInterface
      */
     public function list(array $attributes)
     {
-        return $this->productReponsitory->list($attributes);
+        return $this->productReponsitory->list($attributes)->toArray();
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductService implements ProductServiceInterface
             $attributes['image_url'] = "no-image.png";
         }
 
-        return $this->productReponsitory->create($attributes);
+        return $this->productReponsitory->create($attributes)->toArray();
     }
 
 
@@ -59,7 +59,7 @@ class ProductService implements ProductServiceInterface
             $attributes['image_url'] = $attributes['oldImage'];
         }
 
-        return $this->productReponsitory->update($attributes, $id);
+        return $this->productReponsitory->update($attributes, $id)->toArray();
     }
 
     /**
@@ -77,6 +77,6 @@ class ProductService implements ProductServiceInterface
      */
     public function detail(int $id)
     {
-        return $this->productReponsitory->find($id);
+        return $this->productReponsitory->find($id)->toArray();
     }
 }

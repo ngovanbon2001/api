@@ -23,7 +23,7 @@ class BrandService implements BrandServiceInterface
      */
     public function list(array $attributes)
     {
-        return $this->brandRepository->list($attributes);
+        return $this->brandRepository->list($attributes)->toArray();
     }
 
     /**
@@ -40,7 +40,7 @@ class BrandService implements BrandServiceInterface
             $attributes['image_url'] = "no-image.png";
         }
 
-        return $this->brandRepository->create($attributes);
+        return $this->brandRepository->create($attributes)->toArray();
     }
 
     /**
@@ -58,7 +58,7 @@ class BrandService implements BrandServiceInterface
             $attributes['image_url'] = $attributes['imageOld'];
         }
 
-        return $this->brandRepository->update($attributes, $id);
+        return $this->brandRepository->update($attributes, $id)->toArray();
     }
 
     /**
@@ -76,6 +76,6 @@ class BrandService implements BrandServiceInterface
      */
     public function detail(int $id)
     {
-        return $this->brandRepository->find($id);
+        return $this->brandRepository->find($id)->toArray();
     }
 }

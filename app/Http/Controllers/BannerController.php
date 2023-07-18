@@ -26,7 +26,7 @@ class BannerController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        return $this->handleRepond($this->bannerService->list($request->all()));
+        return $this->handleResponse($this->bannerService->list($request->all()));
     }
 
     /**
@@ -39,7 +39,7 @@ class BannerController extends Controller
 
         $data = $this->bannerService->create($attributes);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -50,7 +50,7 @@ class BannerController extends Controller
     {
         $data = $this->bannerService->detail($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -64,7 +64,7 @@ class BannerController extends Controller
 
         $data = $this->bannerService->update($attributes, $id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -75,6 +75,6 @@ class BannerController extends Controller
     {
         $data = $this->bannerService->delete($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 }

@@ -28,7 +28,7 @@ class CategoryController extends Controller
     {
         $data = $this->cateServiceInterface->list($request->all());
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
         $data = $this->cateServiceInterface->create($attributes);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         $data = $this->cateServiceInterface->detail($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -66,7 +66,7 @@ class CategoryController extends Controller
 
         $data = $this->cateServiceInterface->update($attributes, $id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -77,6 +77,6 @@ class CategoryController extends Controller
     {
         $data = $this->cateServiceInterface->delete($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 }

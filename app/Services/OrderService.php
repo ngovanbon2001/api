@@ -23,7 +23,7 @@ class OrderService implements OrderServiceInterface
      */
     public function list(array $attributes)
     {
-        return $this->orderRepository->list($attributes);
+        return $this->orderRepository->list($attributes)->toArray();
     }
 
     /**
@@ -32,7 +32,7 @@ class OrderService implements OrderServiceInterface
      */
     public function create(array $attributes)
     {
-        return $this->orderRepository->create($attributes);
+        return $this->orderRepository->create($attributes)->toArray();
     }
 
     /**
@@ -42,7 +42,7 @@ class OrderService implements OrderServiceInterface
      */
     public function update(array $attributes, int $id)
     {
-        return $this->orderRepository->update($attributes, $id);
+        return $this->orderRepository->update($attributes, $id)->toArray();
     }
 
     /**
@@ -60,6 +60,6 @@ class OrderService implements OrderServiceInterface
      */
     public function detail(int $id)
     {
-        return $this->orderRepository->find($id);
+        return $this->orderRepository->find($id)->toArray();
     }
 }

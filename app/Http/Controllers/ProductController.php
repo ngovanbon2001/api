@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         $data = $this->productServiceInterface->list($request->all());
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController extends Controller
 
         $data = $this->productServiceInterface->create($attributes);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class ProductController extends Controller
     {
         $data = $this->productServiceInterface->detail($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -66,7 +66,7 @@ class ProductController extends Controller
 
         $data = $this->productServiceInterface->update($attributes, $id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -77,6 +77,6 @@ class ProductController extends Controller
     {
         $data = $this->productServiceInterface->delete($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 }

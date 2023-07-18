@@ -23,7 +23,7 @@ class UserService implements UserServiceInterface
      */
     public function list(array $attributes)
     {
-        return $this->userRepository->list($attributes);
+        return $this->userRepository->list($attributes)->toArray();
     }
 
     /**
@@ -32,7 +32,7 @@ class UserService implements UserServiceInterface
      */
     public function create(array $attributes)
     {
-        return $this->userRepository->create($attributes);
+        return $this->userRepository->create($attributes)->toArray();
     }
 
     /**
@@ -42,7 +42,7 @@ class UserService implements UserServiceInterface
      */
     public function update(array $attributes, int $id)
     {
-        return $this->userRepository->update($attributes, $id);
+        return $this->userRepository->update($attributes, $id)->toArray();
     }
 
     /**
@@ -60,6 +60,6 @@ class UserService implements UserServiceInterface
      */
     public function detail(int $id)
     {
-        return $this->userRepository->find($id);
+        return $this->userRepository->find($id)->toArray();
     }
 }

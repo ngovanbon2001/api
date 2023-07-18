@@ -23,7 +23,7 @@ class CategoryService implements CategoryServiceInterface
      */
     public function list(array $attributes)
     {
-        return $this->categoryReponsitoryInterface->list($attributes);
+        return $this->categoryReponsitoryInterface->list($attributes)->toArray();
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoryService implements CategoryServiceInterface
             $attributes['image_url'] = "no-image.png";
         }
 
-        return $this->categoryReponsitoryInterface->create($attributes);
+        return $this->categoryReponsitoryInterface->create($attributes)->toArray();
     }
 
     /**
@@ -58,7 +58,7 @@ class CategoryService implements CategoryServiceInterface
             $attributes['image_url'] = $attributes['imageOld'];
         }
 
-        return $this->categoryReponsitoryInterface->update($attributes, $id);
+        return $this->categoryReponsitoryInterface->update($attributes, $id)->toArray();
     }
 
     /**
@@ -76,6 +76,6 @@ class CategoryService implements CategoryServiceInterface
      */
     public function detail(int $id)
     {
-        return $this->categoryReponsitoryInterface->find($id);
+        return $this->categoryReponsitoryInterface->find($id)->toArray();
     }
 }

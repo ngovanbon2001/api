@@ -40,7 +40,7 @@ class BannerService implements BannerServiceInterface
             $attributes['image_url'] = "no-image.png";
         }
 
-        return $this->bannerRepository->create($attributes);
+        return $this->bannerRepository->create($attributes)->toArray();
     }
 
     /**
@@ -58,7 +58,7 @@ class BannerService implements BannerServiceInterface
             $attributes['image_url'] = $attributes['imageOld'];
         }
 
-        return $this->bannerRepository->update($attributes, $id);
+        return $this->bannerRepository->update($attributes, $id)->toArray();
     }
 
     /**
@@ -76,6 +76,6 @@ class BannerService implements BannerServiceInterface
      */
     public function detail(int $id)
     {
-        return $this->bannerRepository->find($id);
+        return $this->bannerRepository->find($id)->toArray();
     }
 }

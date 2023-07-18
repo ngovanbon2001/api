@@ -41,7 +41,7 @@ class OrderController extends Controller
 
         $data = $this->orderService->create($attributes);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -52,7 +52,7 @@ class OrderController extends Controller
     {
         $data = $this->orderService->detail($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -66,7 +66,7 @@ class OrderController extends Controller
 
         $data = $this->orderService->update($attributes, $id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -77,6 +77,6 @@ class OrderController extends Controller
     {
         $data = $this->orderService->delete($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 }

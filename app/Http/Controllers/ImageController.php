@@ -27,7 +27,7 @@ class ImageController extends Controller
     {
         $data = $this->imageServiceInterface->list($request->all());
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -40,7 +40,7 @@ class ImageController extends Controller
 
         $data = $this->imageServiceInterface->create($attributes);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -51,7 +51,7 @@ class ImageController extends Controller
     {
         $data = $this->imageServiceInterface->detail($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -65,7 +65,7 @@ class ImageController extends Controller
 
         $data = $this->imageServiceInterface->update($attributes, $id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -76,6 +76,6 @@ class ImageController extends Controller
     {
         $data = $this->imageServiceInterface->delete($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 }

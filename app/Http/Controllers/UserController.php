@@ -34,7 +34,7 @@ class UserController extends Controller
         $attributes = $request->all();
         $data = $this->userService->list($attributes);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -148,6 +148,6 @@ class UserController extends Controller
     {
         $data = $this->userService->list($request->all());
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 }

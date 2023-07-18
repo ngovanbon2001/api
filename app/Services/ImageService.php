@@ -24,7 +24,7 @@ class ImageService implements ImageServiceInterface
      */
     public function list(array $attributes)
     {
-        return $this->imageRepositoryInterface->list($attributes);
+        return $this->imageRepositoryInterface->list($attributes)->toArray();
     }
 
     /**
@@ -40,7 +40,7 @@ class ImageService implements ImageServiceInterface
             $attribute[$key]['image_url'] = handleImage($value);
         }
 
-        return $this->imageRepositoryInterface->insertOrUpdateBatch($attribute);
+        return $this->imageRepositoryInterface->insertOrUpdateBatch($attribute)->toArray();
     }
 
     /**
@@ -58,7 +58,7 @@ class ImageService implements ImageServiceInterface
             $attributes['image_url'] = $attributes['oldImage'];
         }
 
-        return $this->imageRepositoryInterface->update($attributes, $id);
+        return $this->imageRepositoryInterface->update($attributes, $id)->toArray();
     }
 
     /**
@@ -76,6 +76,6 @@ class ImageService implements ImageServiceInterface
      */
     public function detail(int $id)
     {
-        return $this->imageRepositoryInterface->find($id);
+        return $this->imageRepositoryInterface->find($id)->toArray();
     }
 }

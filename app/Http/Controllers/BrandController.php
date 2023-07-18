@@ -29,7 +29,7 @@ class BrandController extends Controller
     {
         $data = $this->brandServiceInterface->list($request->all());
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -42,7 +42,7 @@ class BrandController extends Controller
 
         $data = $this->brandServiceInterface->create($attributes);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -53,7 +53,7 @@ class BrandController extends Controller
     {
         $data = $this->brandServiceInterface->detail($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -67,7 +67,7 @@ class BrandController extends Controller
 
         $data = $this->brandServiceInterface->update($attributes, $id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 
     /**
@@ -78,6 +78,6 @@ class BrandController extends Controller
     {
         $data = $this->brandServiceInterface->delete($id);
 
-        return $this->handleRepond($data);
+        return $this->handleResponse($data);
     }
 }
