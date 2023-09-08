@@ -1,5 +1,7 @@
 <?php
 
+use App\Constants\Constants;
+use App\Constants\StatusCodeMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
@@ -8,6 +10,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +29,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
-   // Route::post('login', 'UserController@login');
+    // Route::post('login', 'UserController@login');
     Route::post('/register', [App\Http\Controllers\UserController::class, 'create']);
-    Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);   
+    Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 });
 
 Route::middleware(['auth:api'])->group(function () {
@@ -73,4 +77,40 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/image/update/{id}', [ImageController::class, 'update']);
     Route::get('/image/show/{id}', [ImageController::class, 'show']);
     Route::get('/image/delete/{id}', [ImageController::class, 'destroy']);
+});
+
+Route::post('/test1', function (Request $request) {
+
+    $csrfToken = 'eyJpdiI6ImZcL0hZdFVFUmpXdkhvckVzTitwSjdBPT0iLCJ2YWx1ZSI6IkJ5dG1WN0FuUXc5WHlUNnNmcjFjaURLVk5rRk1WUTJxbkJudCtuTE1FRUhHWUNjV2VwVmZ0WnhUa0xQb0pUdWRuN0QyYzZaRW5VdVYwdjNcL0g5RWhKZz09IiwibWFjIjoiYWQ4MTIwMTE1ZDNhMzNjZjFjNDE4NTk1YjkyYzc3NzI2NjA2ZjIxMzc4NzE2MWZkNDdmYmZjOTU5ZmRkNWNhMyJ9';
+
+    try {
+        // Thực hiện yêu cầu POST tới hệ thống đích với CSRF token
+        $response = Http::withHeaders([
+            'XSRF-TOKEN' => $csrfToken,
+            'Accept' => 'application/json',
+        ])->post('https://ecohappygo.com/account/do-register', [
+            'ismember' => 'enterprise',
+            // Các trường dữ liệu khác
+        ]);
+
+        // Xử lý response
+        dd($response);
+
+        return [
+            'code' => StatusCodeMessage::CODE_OK,
+            'message' => StatusCodeMessage::getMessage(StatusCodeMessage::CODE_OK),
+            'data' => [
+                'create' => $response
+            ]
+        ];
+    } catch (Exception $e) {
+        dd($e);
+        return [
+            'code'    => StatusCodeMessage::CODE_FAIL,
+            'message' => $e->getMessage(),
+            'data'    => [
+                'create' => $response
+            ]
+        ];
+    }
 });

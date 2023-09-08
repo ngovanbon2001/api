@@ -126,7 +126,7 @@ class UserController extends Controller
                 'refresh_token' => $refreshToken["id"],
             ]);
         }
-
+        // php artisan passport:client --personal  
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 

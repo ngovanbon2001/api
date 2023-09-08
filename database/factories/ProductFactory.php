@@ -18,7 +18,7 @@ class ProductFactory extends Factory
         return [
             'category_id' => 3,
             'brand_id' => 3,
-            'name' => $this->faker->name,
+            'name' => $this->faker->word,
             'image_url' => "product-1.jpg",
             'price' => $this->faker->randomFloat(2, 0, 1000),
             'old_price' => $this->faker->randomFloat(2, 0, 1000),

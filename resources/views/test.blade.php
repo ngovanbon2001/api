@@ -10,5 +10,8 @@
     <a href="{{route('lang', 'vi')}}">vn</a>
     <a href="{{route('lang', 'en')}}">en</a>
     <h1>{{__('lang.document')}}</h1>
+    <form action="/test1" method="post">
+        <button type="submit">Test</button>
+    </form>
 </body>
 </html>
