@@ -13,8 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "prettus/l5-repository": "^2.8",
-        "unisharp/laravel-filemanager": "^2.6"
+        "prettus/l5-repository": "^2.8"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
