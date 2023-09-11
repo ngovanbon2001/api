@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Contracts\CategoryReponsitoryInterface;
 use App\Services\Contracts\CategoryServiceInterface;
+use Exception;
 
 class CategoryService implements CategoryServiceInterface
 {
@@ -32,15 +33,11 @@ class CategoryService implements CategoryServiceInterface
      */
     public function create(array $attributes)
     {
-        if (isset($attributes['image_url'])) {
-            $image = $attributes['image_url'];
-
-            $attributes['image_url'] = handleImage($image);
-        } else {
-            $attributes['image_url'] = "no-image.png";
+        try {
+            return $this->categoryReponsitoryInterface->create($attributes)->toArray();
+        } catch (Exception $e) {
+            return false;
         }
-
-        return $this->categoryReponsitoryInterface->create($attributes)->toArray();
     }
 
     /**
@@ -50,15 +47,17 @@ class CategoryService implements CategoryServiceInterface
      */
     public function update(array $attributes, int $id)
     {
-        if (isset($attributes['image_url'])) {
-            $image = $attributes['image_url'];
+        try {
+            $category = $this->categoryReponsitoryInterface->find($id);
 
-            $attributes['image_url'] = handleImage($image);
-        } else {
-            $attributes['image_url'] = $attributes['imageOld'];
+            if ($category) {
+                $category->update($attributes);
+            }
+
+            return $category->toArray() ?? false;
+        } catch (Exception $e) {
+            return false;
         }
-
-        return $this->categoryReponsitoryInterface->update($attributes, $id)->toArray();
     }
 
     /**
