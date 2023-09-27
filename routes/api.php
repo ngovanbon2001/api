@@ -28,11 +28,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/auth/google',  [App\Http\Controllers\UserController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback',  [App\Http\Controllers\UserController::class, 'handleGoogleCallback']);
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Route::post('login', 'UserController@login');
     Route::post('/register', [App\Http\Controllers\UserController::class, 'create']);
     Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
 });
+
 
 Route::middleware(['auth:api'])->group(function () {
     Route::post('/logout', [App\Http\Controllers\UserController::class, 'logout']);

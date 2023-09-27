@@ -6,9 +6,15 @@ use App\Services\Contracts\UserServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Passport\Token;
+use Google_Client;
+use Google_Service_Oauth2;
+use Socialite;
 
 class UserController extends Controller
 {
@@ -96,6 +102,53 @@ class UserController extends Controller
         return $this->respond(200, "Data", $data);
     }
 
+    public function redirectToGoogle()
+    {
+        try {
+            $client = new Google_Client();
+            $client->setClientId(config('services.google.client_id'));
+            $client->setClientSecret(config('services.google.client_secret'));
+            $client->setRedirectUri(config('services.google.redirect'));
+            $client->setScopes(['email', 'profile']);
+
+            return $client->createAuthUrl();
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return $e->getMessage();
+        }
+    }
+
+    public function handleGoogleCallback(Request $request)
+    {
+        try {
+            $client = new Google_Client();
+            $client->setClientId(config('services.google.client_id'));
+            $client->setClientSecret(config('services.google.client_secret'));
+            $client->setRedirectUri(config('services.google.redirect'));
+
+            $code = $request->input('code');
+
+            if ($code) {
+                $token = $client->fetchAccessTokenWithAuthCode($code);
+                $client->setAccessToken($token['access_token']);
+                $oauth2 = new Google_Service_Oauth2($client);
+                $userData = $oauth2->userinfo->get();
+
+                // Ở đây, bạn có thể lưu thông tin người dùng vào cơ sở dữ liệu hoặc xử lý theo ý muốn của bạn.
+
+                // Sau đó, bạn có thể trả về thông tin người dùng dưới dạng JSON hoặc làm bất kỳ điều gì bạn muốn.
+                return response()->json([
+                    'user' => $userData,
+                ]);
+            } else {
+                return ['user' => null]; // Xử lý lỗi nếu cần thiết.
+            }
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return $e->getMessage();
+        }
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -122,7 +175,7 @@ class UserController extends Controller
 
             return response()->json([
                 'data' => $user,
-                'token' => 'Bearer '. $accessToken,
+                'token' => 'Bearer ' . $accessToken,
                 'refresh_token' => $refreshToken["id"],
             ]);
         }
