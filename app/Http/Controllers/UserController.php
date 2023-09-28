@@ -111,7 +111,7 @@ class UserController extends Controller
             $client->setRedirectUri(config('services.google.redirect'));
             $client->setScopes(['email', 'profile']);
 
-            return $client->createAuthUrl();
+            return redirect($client->createAuthUrl());
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return $e->getMessage();
