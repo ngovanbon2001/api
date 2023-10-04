@@ -117,3 +117,5 @@ Route::post('/test1', function (Request $request) {
         ];
     }
 });
+
+Route::post('/loginSocial',  [App\Http\Controllers\UserController::class, 'loginSocial']);

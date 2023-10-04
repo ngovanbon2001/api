@@ -97,7 +97,7 @@ class UserController extends Controller
      */
     public function detailTest(Request $request): JsonResponse
     {
-        $data = $this->userService->detailTest($request->input("email"));
+        $data = $this->userService->detail($request->input("email"));
 
         return $this->respond(200, "Data", $data);
     }
@@ -109,7 +109,7 @@ class UserController extends Controller
             $client->setClientId(config('services.google.client_id'));
             $client->setClientSecret(config('services.google.client_secret'));
             $client->setRedirectUri(config('services.google.redirect'));
-            $client->setScopes(['email', 'profile']);
+            $client->setScopes(['email']);
 
             return redirect($client->createAuthUrl());
         } catch (Exception $e) {
@@ -147,6 +147,13 @@ class UserController extends Controller
             Log::error($e->getMessage());
             return $e->getMessage();
         }
+    }
+
+    public function loginSocial(Request $request)
+    {
+        $access_token = $request->input('code');
+        $userInfo = getInfoUserGoogle($access_token);
+        dd($userInfo);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Constants\Common;
 use App\Constants\Constants;
+use Illuminate\Support\Facades\Http;
 
 if (!function_exists('handleImage')) {
     function handleImage($fileImage): string
@@ -61,7 +62,6 @@ if (!function_exists('getUserInfoFromToken')) {
 
         $userInfo = json_decode(base64_decode($token), true);
 
-        dd($userInfo);
         $userId = null;
         if ($userInfo['role_name'] === Common::ADMIN_ROLE) {
             $userId = $userInfo['driver_id'];
@@ -74,4 +74,26 @@ if (!function_exists('getUserInfoFromToken')) {
             'role' => $userInfo['role_name']
         ];
     }
+}
+
+function getInfoUserGoogle($access_token = '')
+{
+    $Google_userinfo_endpoint = 'https://www.googleapis.com/oauth2/v3/userinfo';
+    $scope = 'https://www.googleapis.com/auth/userinfo.email';
+
+    $response = Http::withHeaders([
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer ' . $access_token,
+    ])->get($Google_userinfo_endpoint, [
+        'scope' => $scope,
+    ]);
+
+    $userinfo = $response->json();
+
+    return [
+        'email' => $userinfo['email'] ?? null,
+        'name' => $userinfo['name'] ?? null,
+        'id_google' => $userinfo['sub'] ?? null,
+        'avatar_google' => $userinfo['picture'] ?? null,
+    ];
 }
