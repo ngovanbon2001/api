@@ -91,9 +91,9 @@ function getInfoUserGoogle($access_token = '')
     $userinfo = $response->json();
 
     return [
-        'email' => $userinfo['email'] ?? null,
-        'name' => $userinfo['name'] ?? null,
-        'id_google' => $userinfo['sub'] ?? null,
+        'email'         => $userinfo['email']   ?? null,
+        'name'          => $userinfo['name']    ?? null,
+        'id_google'     => $userinfo['sub']     ?? null,
         'avatar_google' => $userinfo['picture'] ?? null,
     ];
 }
